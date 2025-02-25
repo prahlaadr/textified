@@ -1,0 +1,9 @@
+# Node modules in both server and client
+node_modules/
+
+# React build output
+client/build/
+
+# Server environment file
+server/.env
+
