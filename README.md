@@ -32,14 +32,15 @@ Before running the app, you need to create a .env file inside the server directo
 
 - Create a file named .env inside the /server directory.
 - Add the following contents (replace values with your own if needed):
+
   
-SPOTIFY_CLIENT_ID=your_spotify_client_id
-SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
-SPOTIFY_REDIRECT_URI=http://localhost:8888/callback
-SPOTIFY_SCOPE=user-library-read user-library-modify playlist-read-private playlist-modify-private playlist-modify-public
-SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET: Get these from your Spotify Developer Dashboard.
-SPOTIFY_REDIRECT_URI: Must match one of the Redirect URIs registered in your Spotify app settings (e.g., http://localhost:8888/callback).
-SPOTIFY_SCOPE: Leave as provided for full functionality.
+> SPOTIFY_CLIENT_ID=your_spotify_client_id
+> SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
+> SPOTIFY_REDIRECT_URI=http://localhost:8888/callback
+> SPOTIFY_SCOPE=user-library-read user-library-modify playlist-read-private playlist-modify-private playlist-modify-public
+> SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET: Get these from your Spotify Developer Dashboard.
+> SPOTIFY_REDIRECT_URI: Must match one of the Redirect URIs registered in your Spotify app settings (e.g., http://localhost:8888/callback).
+> SPOTIFY_SCOPE: Leave as provided for full functionality.
 
 - Register the Redirect URI in your Spotify Developer Dashboard:
 - Go to your Spotify app settings.
