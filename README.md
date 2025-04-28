@@ -44,18 +44,30 @@ A local web application that allows you to **bulk add/remove** songs from your S
    Server:
    ```bash
     cd server
-    npm install 
-  Client:
-   cd ../client
-   npm install
 
-3. - **Environment Variables Setup**:
-Before running the app, you need to create a .env file inside the server directory with your Spotify API credentials and configuration.
+### 1. Clone the Repository
+```sh
+git clone https://github.com/prahlaadr/textifiedagain.git
+cd textifiedagain
+```
 
-- Create a file named .env inside the /server directory.
-- Add the following contents (replace values with your own if needed):
+### 2. Install Dependencies
+#### Server:
+```sh
+cd server
+npm install
+```
+#### Client:
+```sh
+cd ../client
+npm install
+```
 
-```bash  
+### 3. Environment Variables Setup
+Before running the app, you need to create a `.env` file inside the `server` directory with your Spotify API credentials and configuration.
+
+Create a file named `.env` inside the `/server` directory. Add the following contents (replace values with your own if needed):
+```
 SPOTIFY_CLIENT_ID=your_spotify_client_id
 SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
 SPOTIFY_REDIRECT_URI=http://localhost:8888/callback
