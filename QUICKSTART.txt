@@ -1,0 +1,39 @@
+QUICKSTART: Running Textified Locally
+=====================================
+
+This guide shows how to quickly kill any existing servers on ports 3000 or 8888, start the Textified app, and access it in your browser.
+
+---
+
+**1. Kill Any Existing Servers on Ports 3000 or 8888**
+
+Paste these commands in your terminal:
+
+lsof -ti :3000 | xargs kill -9 2>/dev/null
+lsof -ti :8888 | xargs kill -9 2>/dev/null
+
+---
+
+**2. Start Textified (from the project root)**
+
+cd /Users/prahlaad/Desktop/Projects/textified
+npm run dev
+
+This will start both the backend (Express, port 8888) and frontend (React, port 3000) using `concurrently`.
+
+---
+
+**3. Open the App in Your Browser**
+
+Go to:
+http://localhost:3000
+
+Log in with Spotify when prompted and begin using the app!
+
+---
+
+**IMPORTANT: .env File Required**
+
+Make sure you have a valid `.env` file in `/Users/prahlaad/Desktop/Projects/textified/server` with your Spotify credentials. The app will not work without it.
+
+See the README.md for details on the required environment variables and setup.

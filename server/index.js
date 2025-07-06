@@ -96,19 +96,43 @@ app.get('/profile', async (req, res) => {
 
 // POST /search: search for a track by title and artist
 app.post('/search', async (req, res) => {
-  const { title, artist, access_token } = req.body;
-  if (!title || !artist || !access_token) {
-    return res.status(400).send('Missing title, artist, or access token');
+  const { query, title, artist, access_token } = req.body;
+  if (!access_token) {
+    return res.status(400).send('Missing access token');
   }
+  
+  let searchQuery = '';
+  
+  // Support for raw query string (new flexible format)
+  if (query) {
+    searchQuery = query;
+  } 
+  // Legacy support for separate title/artist
+  else if (title && artist) {
+    searchQuery = `${title} ${artist}`;
+  } 
+  else {
+    return res.status(400).send('Missing search query');
+  }
+  
   try {
-    const q = `${title} ${artist}`;
     const response = await axios.get('https://api.spotify.com/v1/search', {
       headers: { Authorization: `Bearer ${access_token}` },
-      params: { q, type: 'track', limit: 1 }
+      params: { q: searchQuery, type: 'track', limit: 3 }  // Get top 3 results for better matching
     });
     const tracks = response.data.tracks.items;
     if (tracks.length > 0) {
-      res.json({ trackId: tracks[0].id });
+      // Return the first track, but include more info for client-side validation
+      res.json({ 
+        trackId: tracks[0].id,
+        name: tracks[0].name,
+        artist: tracks[0].artists[0].name,
+        alternatives: tracks.slice(1).map(t => ({
+          id: t.id,
+          name: t.name,
+          artist: t.artists[0].name
+        }))
+      });
     } else {
       res.status(404).send('No track found');
     }

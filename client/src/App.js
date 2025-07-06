@@ -12,6 +12,8 @@ function App() {
   const [playlistTracks, setPlaylistTracks] = useState([]);
   const [loadingPlaylistTracks, setLoadingPlaylistTracks] = useState(false);
   const [playlistTracksError, setPlaylistTracksError] = useState('');
+  // Track search results
+  const [searchResults, setSearchResults] = useState({ found: 0, notFound: [] });
 
   // Parse the access token from URL
   const params = new URLSearchParams(window.location.search);
@@ -54,22 +56,60 @@ function App() {
   const parseBulkAndGetTrackIds = async () => {
     const lines = bulkInput.split('\n').filter(line => line.trim() !== '');
     const trackIds = [];
+    const notFound = [];
+    
     for (const line of lines) {
-      const [title, artist] = line.split(' - ');
-      if (!title || !artist) continue;
+      const trimmedLine = line.trim();
+      if (!trimmedLine) continue;
+      
+      let searchQuery = '';
+      let title = '';
+      let artist = '';
+      
+      // Try different formats
+      // Format 1: "Song Title - Artist" or "Artist - Song Title"
+      if (trimmedLine.includes(' - ')) {
+        const parts = trimmedLine.split(' - ').map(p => p.trim());
+        if (parts.length === 2) {
+          // We'll try both interpretations
+          searchQuery = trimmedLine;
+        }
+      }
+      // Format 2: "Song Title by Artist"
+      else if (trimmedLine.toLowerCase().includes(' by ')) {
+        const parts = trimmedLine.split(/\s+by\s+/i).map(p => p.trim());
+        if (parts.length === 2) {
+          title = parts[0];
+          artist = parts[1];
+          searchQuery = `${title} ${artist}`;
+        }
+      }
+      // Format 3: Just the song title (no separator)
+      else {
+        searchQuery = trimmedLine;
+      }
+      
       try {
         const resp = await axios.post("http://localhost:8888/search", {
-          title: title.trim(),
-          artist: artist.trim(),
+          query: searchQuery,
+          title: title,
+          artist: artist,
           access_token: accessToken
         });
         if (resp.data.trackId) {
           trackIds.push(resp.data.trackId);
+        } else {
+          notFound.push(line);
         }
       } catch (error) {
         console.error("Error searching track:", error);
+        notFound.push(line);
       }
     }
+    
+    // Update search results state
+    setSearchResults({ found: trackIds.length, notFound });
+    
     return trackIds;
   };
 
@@ -272,10 +312,38 @@ function App() {
 
           <textarea
             style={textAreaStyle}
-            placeholder='Enter songs, one per line in the format "Song Title - Artist"'
+            placeholder={'Enter songs, one per line:\n' +
+                       'Bad Guy - Billie Eilish\n' +
+                       'Ed Sheeran - Shape of You\n' +
+                       'Blinding Lights by The Weeknd\n' +
+                       'Bohemian Rhapsody'}
             value={bulkInput}
             onChange={(e) => setBulkInput(e.target.value)}
           />
+          
+          {/* Format Help Text */}
+          <div style={{ marginTop: '5px', fontSize: '12px', color: '#666' }}>
+            Supported formats: "Song - Artist", "Artist - Song", "Song by Artist", or just "Song Title"
+          </div>
+
+          {/* Search Results Display */}
+          {searchResults.found > 0 && (
+            <div style={{ marginTop: '10px', color: '#666', fontSize: '14px' }}>
+              Found {searchResults.found} tracks
+              {searchResults.notFound.length > 0 && (
+                <details style={{ marginTop: '5px' }}>
+                  <summary style={{ color: '#d9534f', cursor: 'pointer' }}>
+                    {searchResults.notFound.length} tracks not found
+                  </summary>
+                  <ul style={{ fontSize: '12px', marginTop: '5px' }}>
+                    {searchResults.notFound.map((q, i) => (
+                      <li key={i}>{q}</li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+            </div>
+          )}
 
           {/* Liked Songs Buttons */}
           <div style={buttonBarStyle}>
@@ -315,7 +383,7 @@ function App() {
                 <option value="">-- Choose a Playlist --</option>
                 {playlists.map(pl => (
                   <option key={pl.id} value={pl.id}>
-                    {pl.name}
+                    {pl.name} ({pl.tracks.total} tracks)
                   </option>
                 ))}
               </select>
