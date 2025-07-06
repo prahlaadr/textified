@@ -38,42 +38,20 @@ A powerful web application that allows you to **bulk add/remove** songs from you
 
 ## 🚀 Quick Start
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/prahlaadr/textified.git
-   cd textified
-   ```
+### For Users
+**Coming Soon:** Hosted version at textified.vercel.app
 
-2. **Install All Dependencies**
-   ```bash
-   npm install
-   ```
-   This installs dependencies for both client and server.
+### For Developers
+Want to run Textified locally? See our **[Setup Guide](SETUP_GUIDE.md)** for step-by-step instructions!
 
-3. **Set Up Environment Variables**
-   
-   Create `.env` file in the `server` directory:
-   ```env
-   SPOTIFY_CLIENT_ID=your_spotify_client_id
-   SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
-   SPOTIFY_REDIRECT_URI=http://localhost:8888/callback
-   SPOTIFY_SCOPE=user-library-read user-library-modify playlist-read-private playlist-modify-private playlist-modify-public
-   ```
+**Quick Overview:**
+1. Clone this repo
+2. Create a Spotify App in the [Developer Dashboard](https://developer.spotify.com/dashboard)
+3. Copy `.env.example` to `.env` and add your credentials
+4. Run `npm install` then `npm run dev`
+5. Open http://localhost:3000
 
-4. **Configure Spotify App**
-   - Go to [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
-   - Add `http://localhost:8888/callback` to Redirect URIs
-
-5. **Start the Application**
-   ```bash
-   npm run dev
-   ```
-   - Backend runs on http://localhost:8888
-   - Frontend runs on http://localhost:3000
-
-6. **Open in Browser**
-   
-   Navigate to http://localhost:3000 and log in with Spotify!
+Full details in [SETUP_GUIDE.md](SETUP_GUIDE.md)
 
 ## 📖 How to Use
 
@@ -147,6 +125,17 @@ See [TESTING_GUIDE.md](TESTING_GUIDE.md) for comprehensive testing instructions.
 - **Search Accuracy**: Uses first search result only
 - **Playlist Limit**: Shows first 50 playlists
 - **Rate Limits**: Spotify API limits may apply for large batches
+
+## 🌐 Deployment Options
+
+### Currently Available
+- **Local Development**: Full setup guide in [SETUP_GUIDE.md](SETUP_GUIDE.md)
+- Each user runs their own instance with their own Spotify app
+
+### Coming Soon
+- **Hosted Version**: Planning Vercel deployment
+- **One-Click Deploy**: Deploy your own instance to Vercel
+- See [HOSTING_PLAN.md](HOSTING_PLAN.md) for technical details
 
 ## 🤝 Contributing
 
