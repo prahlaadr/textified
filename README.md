@@ -43,6 +43,8 @@ A powerful web application that allows you to **bulk add/remove** songs from you
 
 A hosted version is now available on Vercel. Visit the link above to use Textified without any setup.
 
+**Note:** Due to Spotify API restrictions, the hosted version is limited to 25 allowlisted users. If you'd like access, please email me to be added to the allowlist.
+
 ### For Developers
 Want to run Textified locally? See our **[Setup Guide](SETUP_GUIDE.md)** for step-by-step instructions!
 
