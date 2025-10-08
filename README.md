@@ -39,7 +39,9 @@ A powerful web application that allows you to **bulk add/remove** songs from you
 ## 🚀 Quick Start
 
 ### For Users
-**Coming Soon:** Hosted version at textified.vercel.app
+**Live Demo:** [https://textified-vercel.vercel.app](https://textified-vercel.vercel.app)
+
+A hosted version is now available on Vercel. Visit the link above to use Textified without any setup.
 
 ### For Developers
 Want to run Textified locally? See our **[Setup Guide](SETUP_GUIDE.md)** for step-by-step instructions!
@@ -128,13 +130,16 @@ See [TESTING_GUIDE.md](TESTING_GUIDE.md) for comprehensive testing instructions.
 
 ## 🌐 Deployment Options
 
-### Currently Available
-- **Local Development**: Full setup guide in [SETUP_GUIDE.md](SETUP_GUIDE.md)
-- Each user runs their own instance with their own Spotify app
+### Hosted Version
+**Live at:** [https://textified-vercel.vercel.app](https://textified-vercel.vercel.app)
 
-### Coming Soon
-- **Hosted Version**: Planning Vercel deployment
-- **One-Click Deploy**: Deploy your own instance to Vercel
+A production-ready deployment is available on Vercel. This uses a shared Spotify app configuration and is ready to use immediately.
+
+**Repository:** [textified-vercel](https://github.com/prahlaadr/textified-vercel) - Vercel-optimized deployment with API routes
+
+### Local Development
+- **Self-Hosted**: Full setup guide in [SETUP_GUIDE.md](SETUP_GUIDE.md)
+- Run your own instance with your own Spotify app credentials
 - See [HOSTING_PLAN.md](HOSTING_PLAN.md) for technical details
 
 ## 🤝 Contributing
